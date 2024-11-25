@@ -60,4 +60,10 @@ class Livro extends Model
     {
         return $this->belongsTo(Dominio::class, 'faculdade_id');
     }
+
+    // Relacionamento com o modelo Emprestimo
+    public function emprestimos()
+    {
+        return $this->hasMany(Emprestimo::class);
+    }
 }

@@ -13,7 +13,9 @@ class FaculdadeController extends Controller
      */
     public function index()
     {
-        //
+        return view('faculdades.index', [
+            'faculdades' => Faculdade::paginate(10),
+        ]);
     }
 
     /**
@@ -21,7 +23,7 @@ class FaculdadeController extends Controller
      */
     public function create()
     {
-        //
+        return view('faculdades.create');
     }
 
     /**
@@ -29,7 +31,8 @@ class FaculdadeController extends Controller
      */
     public function store(StoreFaculdadeRequest $request)
     {
-        //
+        Faculdade::create($request->validated());
+        return redirect()->route('faculdades.index')->with('status', 'Faculdade criada com sucesso!');
     }
 
     /**
@@ -37,7 +40,9 @@ class FaculdadeController extends Controller
      */
     public function show(Faculdade $faculdade)
     {
-        //
+        return view('faculdades.show', [
+            'faculdade' => $faculdade,
+        ]);
     }
 
     /**
@@ -45,7 +50,9 @@ class FaculdadeController extends Controller
      */
     public function edit(Faculdade $faculdade)
     {
-        //
+        return view('faculdades.edit', [
+            'faculdade' => $faculdade,
+        ]);
     }
 
     /**
@@ -53,7 +60,8 @@ class FaculdadeController extends Controller
      */
     public function update(UpdateFaculdadeRequest $request, Faculdade $faculdade)
     {
-        //
+        $faculdade->update($request->validated());
+        return redirect()->route('faculdades.index')->with('status', 'Faculdade atualizada com sucesso!');
     }
 
     /**
@@ -61,6 +69,7 @@ class FaculdadeController extends Controller
      */
     public function destroy(Faculdade $faculdade)
     {
-        //
+        $faculdade->delete();
+        return redirect()->route('faculdades.index')->with('status', 'Faculdade deletada com sucesso!');
     }
 }

@@ -25,6 +25,9 @@ class UserSeeder extends Seeder
             'password' => $userEstudante->password,
         ]);
 
+        $modelUserEstudante->assignRole('Estudante');
+
+
         $dadosEstudante = (object) [
             'user_id' => $modelUserEstudante->id,
             'matricula' => '12345678',
@@ -63,14 +66,23 @@ class UserSeeder extends Seeder
             'email' => $userBibliotecario->email,
             'password' => $userBibliotecario->password,
         ]);
+        $modelUserBibliotecario->assignRole('Bibliotecario');
         $dadosBibliotecario = (object) [
             'user_id' => $modelUserBibliotecario->id,
-
         ];
         \App\Models\Bibliotecario::create([
             'user_id' => $dadosBibliotecario->user_id,
             'faculdade_id' => $faculdade_disponiveis->first()->id,
             'matricula' => '12345678',
         ]);
+
+        $userAdmin = [
+            'name' => 'Admin',
+            'email' => 'admin@teste.com',
+            'password' => $senhaDefault,
+        ];
+
+        $modelUserAdmin = \App\Models\User::create($userAdmin);
+        $modelUserAdmin->assignRole('Admin');
     }
 }

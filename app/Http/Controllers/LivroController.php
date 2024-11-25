@@ -13,7 +13,9 @@ class LivroController extends Controller
      */
     public function index()
     {
-        //
+        return view('livros.index', [
+            'livros' => Livro::paginate(10),
+        ]);
     }
 
     /**
@@ -21,7 +23,7 @@ class LivroController extends Controller
      */
     public function create()
     {
-        //
+        return view('livros.create');
     }
 
     /**
@@ -29,7 +31,8 @@ class LivroController extends Controller
      */
     public function store(StoreLivroRequest $request)
     {
-        //
+        Livro::create($request->validated());
+        return redirect()->route('livros.index');
     }
 
     /**
@@ -37,7 +40,14 @@ class LivroController extends Controller
      */
     public function show(Livro $livro)
     {
-        //
+
+        return view('livros.show', [
+            'livro' => $livro,
+            'localizacao' => $livro->localizacao,
+            'categoria' => $livro->categoriaLivro,
+            'faculdade' => $livro->faculdade,
+            'emprestimos' => $livro->emprestimos->sortByDesc('data_emprestimo'),
+        ]);
     }
 
     /**
@@ -45,7 +55,13 @@ class LivroController extends Controller
      */
     public function edit(Livro $livro)
     {
-        //
+        return view('livros.edit', [
+            'livro' => $livro,
+            'localizacao' => $livro->localizacao,
+            'categoria' => $livro->categoriaLivro,
+            'faculdade' => $livro->faculdade,
+            'emprestimos' => $livro->emprestimos->sortByDesc('data_emprestimo'),
+        ]);
     }
 
     /**
@@ -53,7 +69,8 @@ class LivroController extends Controller
      */
     public function update(UpdateLivroRequest $request, Livro $livro)
     {
-        //
+        $livro->update($request->validated());
+        return redirect()->route('livros.index');
     }
 
     /**
@@ -61,6 +78,7 @@ class LivroController extends Controller
      */
     public function destroy(Livro $livro)
     {
-        //
+        $livro->delete();
+        return redirect()->route('livros.index');
     }
 }

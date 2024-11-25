@@ -23,6 +23,19 @@ class Emprestimo extends Model
         'dh_devolucao',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($emprestimo) {
+            $pendingCount = self::where('aluno_id', $emprestimo->aluno_id)
+                ->whereNull('dh_devolucao')
+                ->count();
+
+            if ($pendingCount >= 5) {
+                throw new \Exception('Este aluno já possui 5 ou mais empréstimos pendentes. Não é possível criar outro empréstimo.');
+            }
+        });
+    }
+
     /**
      * Relationships
      */

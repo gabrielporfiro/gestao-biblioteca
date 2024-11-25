@@ -24,6 +24,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->timestamp('dh_emprestimo')->useCurrent();
             $table->timestamp('dh_devolucao')->nullable();
+            $table->unique(['livro_id', 'aluno_id', 'bibliotecario_id', 'dh_emprestimo'], 'emprestimo_unique');
             $table->timestamps();
         });
     }

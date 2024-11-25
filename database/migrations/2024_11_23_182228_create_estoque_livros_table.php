@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('status_estoque_id')
                 ->constrained('dominios')
                 ->cascadeOnDelete();
+            $table->unique(['livro_id', 'status_estoque_id'], 'uk_estoque_livros_livro_id_status_estoque_id');
             $table->timestamps();
         });
     }

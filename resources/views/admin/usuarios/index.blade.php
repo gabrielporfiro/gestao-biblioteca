@@ -88,5 +88,8 @@
                 @endforeach
                 </tbody>
             </table>
+        <div class="d-flex justify-content-center">
+            {!! $usuarios->links() !!}
+        </div>
     </x-container>
 </x-app-layout>

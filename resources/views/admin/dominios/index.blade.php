@@ -81,5 +81,8 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                {!! $dominios->links() !!}
+            </div>
     </x-container>
 </x-app-layout>

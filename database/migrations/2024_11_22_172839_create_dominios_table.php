@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('nr_ordem');
             $table->string('nm_code');
             $table->unique(['tp_dominio', 'nm_dominio', 'nr_ordem'], 'dominios_unique');
+            $table->unique(['tp_dominio', 'nm_dominio', 'nm_code'], 'dominios_unique_2');
             $table->timestamps();
         });
     }

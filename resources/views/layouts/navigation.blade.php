@@ -16,7 +16,7 @@
                         {{ __('Inicio') }}
                     </x-nav-link>
                     @role('Admin')
-                    <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.index')">
+                    <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.index') or request()->routeIs('usuarios.create') or request()->routeIs('usuarios.edit') or request()->routeIs('usuarios.show')">
                         {{ __('Usuários') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dominios.index')" :active="request()->routeIs('dominios.index')">

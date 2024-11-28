@@ -13,22 +13,35 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Inicio') }}
                     </x-nav-link>
+                    @role('Aluno')
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Livros') }}
                     </x-nav-link>
-
+                    @endrole
+                    @role('Bibliotecario')
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Livros') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Estoque') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Emprestimos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Localizacoes') }}
+                    </x-nav-link>
+                    @endrole
+                    @role('Admin')
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Usuários') }}
                     </x-nav-link>
-
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Empréstimos') }}
+                        {{ __('Domínios') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Faculdades') }}
-                    </x-nav-link>
+                    @endrole
                 </div>
             </div>
 

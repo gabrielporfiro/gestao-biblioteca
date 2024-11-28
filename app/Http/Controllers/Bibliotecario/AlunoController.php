@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Bibliotecario;
 
-use App\Models\Emprestimo;
-use App\Http\Requests\StoreEmprestimoRequest;
-use App\Http\Requests\UpdateEmprestimoRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAlunoRequest;
+use App\Http\Requests\UpdateAlunoRequest;
+use App\Models\Aluno;
 
-class EmprestimoController extends Controller
+class AlunoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class EmprestimoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEmprestimoRequest $request)
+    public function store(StoreAlunoRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class EmprestimoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Emprestimo $emprestimo)
+    public function show(Aluno $aluno)
     {
         //
     }
@@ -43,7 +44,7 @@ class EmprestimoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Emprestimo $emprestimo)
+    public function edit(Aluno $aluno)
     {
         //
     }
@@ -51,7 +52,7 @@ class EmprestimoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmprestimoRequest $request, Emprestimo $emprestimo)
+    public function update(UpdateAlunoRequest $request, Aluno $aluno)
     {
         //
     }
@@ -59,7 +60,7 @@ class EmprestimoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Emprestimo $emprestimo)
+    public function destroy(Aluno $aluno)
     {
         //
     }

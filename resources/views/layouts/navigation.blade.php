@@ -15,31 +15,31 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
                     </x-nav-link>
+                    @role('Admin')
+                    <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.index')">
+                        {{ __('Usuários') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dominios.index')" :active="request()->routeIs('dominios.index')">
+                        {{ __('Domínios') }}
+                    </x-nav-link>
+                    @endrole
                     @role('Aluno')
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('livros.index')" :active="request()->routeIs('livros.index')">
                         {{ __('Livros') }}
                     </x-nav-link>
                     @endrole
                     @role('Bibliotecario')
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('alunos.index')" :active="request()->routeIs('alunos.index')">
+                        {{ __('Alunos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('livro.index')" :active="request()->routeIs('livro.index')">
                         {{ __('Livros') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('estoque.index')" :active="request()->routeIs('estoque.index')">
                         {{ __('Estoque') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('emprestimos.index')" :active="request()->routeIs('emprestimos.index')">
                         {{ __('Emprestimos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Localizacoes') }}
-                    </x-nav-link>
-                    @endrole
-                    @role('Admin')
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Usuários') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Domínios') }}
                     </x-nav-link>
                     @endrole
                 </div>

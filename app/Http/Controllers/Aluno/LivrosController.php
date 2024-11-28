@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Aluno;
 
-use App\Models\Livro;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLivroRequest;
 use App\Http\Requests\UpdateLivroRequest;
+use App\Models\Livro;
 
-class LivroController extends Controller
+class LivrosController extends Controller
 {
     /**
      * Display a listing of the resource.

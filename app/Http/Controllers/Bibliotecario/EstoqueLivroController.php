@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Bibliotecario;
 
-use App\Models\Aluno;
-use App\Http\Requests\StoreAlunoRequest;
-use App\Http\Requests\UpdateAlunoRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEstoqueLivroRequest;
+use App\Http\Requests\UpdateEstoqueLivroRequest;
+use App\Models\EstoqueLivro;
 
-class AlunoController extends Controller
+class EstoqueLivroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class AlunoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAlunoRequest $request)
+    public function store(StoreEstoqueLivroRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class AlunoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Aluno $aluno)
+    public function show(EstoqueLivro $estoqueLivro)
     {
         //
     }
@@ -43,7 +44,7 @@ class AlunoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Aluno $aluno)
+    public function edit(EstoqueLivro $estoqueLivro)
     {
         //
     }
@@ -51,7 +52,7 @@ class AlunoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAlunoRequest $request, Aluno $aluno)
+    public function update(UpdateEstoqueLivroRequest $request, EstoqueLivro $estoqueLivro)
     {
         //
     }
@@ -59,7 +60,7 @@ class AlunoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Aluno $aluno)
+    public function destroy(EstoqueLivro $estoqueLivro)
     {
         //
     }

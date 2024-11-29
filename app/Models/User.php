@@ -46,4 +46,31 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the user's role.
+     */
+    public function role()
+    {
+        return $this->roles->first();
+    }
+
+    /**
+     * Get the user's role name.
+     */
+    public function roleName()
+    {
+        return $this->role()->name;
+    }
+
+    public function bibliotecario()
+    {
+        return $this->hasOne(Bibliotecario::class);
+    }
+
+    public function aluno()
+    {
+        return $this->hasOne(Aluno::class);
+    }
+
 }

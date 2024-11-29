@@ -33,11 +33,6 @@
     <script src="https://cdn.datatables.net/searchpanes/2.3.2/js/searchPanes.dataTables.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.5/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.5/js/select.dataTables.js"></script>
-
-    <!-- Select -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

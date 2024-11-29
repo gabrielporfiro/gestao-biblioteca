@@ -8,15 +8,15 @@
         <x-tabs-index :route="['index' => route('dominios.index'), 'create' => route('dominios.create')]" :active="'create'"/>
         <!-- Alerta de erro -->
         @if ($errors->any())
-            <x-alerts-sessions tipo="erro" :errors="$errors" />
+            <x-alerts-sessions tipo="erro" :mensagens="$errors" />
         @endif
         <!-- Alerta de sucesso -->
         @if (session('success'))
-            <x-alerts-sessions tipo="sucesso" :message="session('success')" />
+            <x-alerts-sessions tipo="sucesso" :mensagens="session('success')" />
         @endif
         <!-- Alerta de erro -->
         @if (session('aviso'))
-            <x-alerts-sessions tipo="aviso" :message="session('info')" />
+            <x-alerts-sessions tipo="aviso" :mensagens="session('info')" />
         @endif
         <form action="{{ route('dominios.store') }}" method="POST" class="w-full mt-4">
             @csrf

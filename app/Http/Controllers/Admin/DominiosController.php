@@ -10,7 +10,7 @@ class DominiosController extends Controller
 {
     public function index()
     {
-        return view('admin.dominios.index')->with('dominios', Dominio::paginate(10));
+        return view('admin.dominios.index')->with('dominios', Dominio::orderBy('created_at', 'desc')->paginate(10));
     }
 
     public function create()

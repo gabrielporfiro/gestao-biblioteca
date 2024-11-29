@@ -14,7 +14,7 @@ class LivrosController extends Controller
      */
     public function index()
     {
-        return view('livros.index', [
+        return view('aluno.livros.index', [
             'livros' => Livro::paginate(10),
         ]);
     }

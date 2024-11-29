@@ -25,8 +25,7 @@ class UserSeeder extends Seeder
             'password' => $userEstudante->password,
         ]);
 
-        $modelUserEstudante->assignRole('Estudante');
-
+        $modelUserEstudante->assignRole('Aluno');
 
         $dadosEstudante = (object) [
             'user_id' => $modelUserEstudante->id,

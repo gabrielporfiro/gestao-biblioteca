@@ -19,8 +19,21 @@ class Emprestimo extends Model
         'livro_id',
         'aluno_id',
         'bibliotecario_id',
+        'total_dias',
+        'total_renovacoes',
         'dh_emprestimo',
         'dh_devolucao',
+        'observacoes',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'dh_emprestimo' => 'datetime',
+        'dh_devolucao' => 'datetime',
     ];
 
     protected static function booted()

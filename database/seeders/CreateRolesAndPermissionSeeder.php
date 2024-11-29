@@ -69,9 +69,9 @@ class CreateRolesAndPermissionSeeder extends Seeder
         $bibliotecario->givePermissionTo($bibliotecarioPermissions);
 
         /**
-         * Estudante
+         * Aluno
          */
-        $estudante = Role::create(['name' => 'Estudante']);
+        $estudante = Role::create(['name' => 'Aluno']);
         $estudantePermissions = [
             'read-livro',
             'read-emprestimo',

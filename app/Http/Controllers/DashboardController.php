@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Emprestimo;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -11,6 +12,11 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
-        return view('dashboard');
+        $emprestimos = Emprestimo::where('aluno_id', auth()->user()->id)
+            ->whereNull('dh_devolucao')  // Apenas empréstimos sem data de devolução
+            ->with('livro')
+            ->orderBy('dh_emprestimo', 'desc')
+            ->paginate(5);
+        return view('dashboard')->with('emprestimos', $emprestimos);
     }
 }

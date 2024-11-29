@@ -22,6 +22,9 @@ return new class extends Migration
             $table->foreignId('bibliotecario_id')
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->integer('total_dias')->default(7);
+            $table->integer('total_renovacoes')->default(0);
+            $table->text('observacoes')->nullable();
             $table->timestamp('dh_emprestimo')->useCurrent();
             $table->timestamp('dh_devolucao')->nullable();
             $table->unique(['livro_id', 'aluno_id', 'bibliotecario_id', 'dh_emprestimo'], 'emprestimo_unique');

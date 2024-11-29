@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
     <x-container>
-
         <x-tabs-index :route="['index' => route('alunos.index'), 'create' => route('alunos.create')]" />
         <!-- Alerta de erro -->
         @if ($errors->any())

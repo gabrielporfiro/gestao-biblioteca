@@ -19,26 +19,26 @@
                     <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.index') or request()->routeIs('usuarios.create') or request()->routeIs('usuarios.edit') or request()->routeIs('usuarios.show')">
                         {{ __('Usuários') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dominios.index')" :active="request()->routeIs('dominios.index')">
+                    <x-nav-link :href="route('dominios.index')" :active="request()->routeIs('dominios.index') or request()->routeIs('dominios.create') or request()->routeIs('dominios.edit') or request()->routeIs('dominios.show')">
                         {{ __('Domínios') }}
                     </x-nav-link>
                     @endrole
                     @role('Aluno')
-                    <x-nav-link :href="route('livros.index')" :active="request()->routeIs('livros.index')">
+                    <x-nav-link :href="route('livros.index')" :active="request()->routeIs('livros.index') or request()->routeIs('livros.show')">
                         {{ __('Livros') }}
                     </x-nav-link>
                     @endrole
                     @role('Bibliotecario')
-                    <x-nav-link :href="route('alunos.index')" :active="request()->routeIs('alunos.index')">
+                    <x-nav-link :href="route('alunos.index')" :active="request()->routeIs('alunos.index') or request()->routeIs('alunos.create') or request()->routeIs('alunos.edit') or request()->routeIs('alunos.show')">
                         {{ __('Alunos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('livro.index')" :active="request()->routeIs('livro.index')">
+                    <x-nav-link :href="route('livro.index')" :active="request()->routeIs('livro.index') or request()->routeIs('livro.create') or request()->routeIs('livro.edit') or request()->routeIs('livro.show')">
                         {{ __('Livros') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('estoque.index')" :active="request()->routeIs('estoque.index')">
+                    <x-nav-link :href="route('estoque.index')" :active="request()->routeIs('estoque.index') or request()->routeIs('estoque.create') or request()->routeIs('estoque.edit') or request()->routeIs('estoque.show')">
                         {{ __('Estoque') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('emprestimos.index')" :active="request()->routeIs('emprestimos.index')">
+                    <x-nav-link :href="route('emprestimos.index')" :active="request()->routeIs('emprestimos.index') or request()->routeIs('emprestimos.create') or request()->routeIs('emprestimos.edit') or request()->routeIs('emprestimos.show')">
                         {{ __('Emprestimos') }}
                     </x-nav-link>
                     @endrole

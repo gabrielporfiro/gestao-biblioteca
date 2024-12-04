@@ -26,8 +26,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::group(['prefix' => 'bibliotecario', 'middleware' => 'role:Bibliotecario'], function () {
         Route::resource('alunos', AlunoController::class);
         Route::resource('livro', LivroController::class);
-        Route::resource('estoque', EstoqueLivroController::class);
-        Route::resource('emprestimos', EmprestimoController::class);
+        Route::get('livro/{livro}/emprestimo', [LivroController::class, 'emprestimo'])->name('livro.emprestimo');
+        Route::get('livro/{livro}/estoque', [LivroController::class, 'estoque'])->name('livro.estoque');
     });
     Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

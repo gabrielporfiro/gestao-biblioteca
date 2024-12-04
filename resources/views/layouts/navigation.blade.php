@@ -35,12 +35,6 @@
                     <x-nav-link :href="route('livro.index')" :active="request()->routeIs('livro.index') or request()->routeIs('livro.create') or request()->routeIs('livro.edit') or request()->routeIs('livro.show')">
                         {{ __('Livros') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('estoque.index')" :active="request()->routeIs('estoque.index') or request()->routeIs('estoque.create') or request()->routeIs('estoque.edit') or request()->routeIs('estoque.show')">
-                        {{ __('Estoque') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('emprestimos.index')" :active="request()->routeIs('emprestimos.index') or request()->routeIs('emprestimos.create') or request()->routeIs('emprestimos.edit') or request()->routeIs('emprestimos.show')">
-                        {{ __('Emprestimos') }}
-                    </x-nav-link>
                     @endrole
                 </div>
             </div>

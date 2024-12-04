@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Bibliotecario;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLivroRequest;
 use App\Http\Requests\UpdateLivroRequest;
+use App\Models\Aluno;
+use App\Models\Dominio;
+use App\Models\EstoqueLivro;
 use App\Models\Livro;
+use App\Models\User;
 
 class LivroController extends Controller
 {
@@ -14,7 +18,7 @@ class LivroController extends Controller
      */
     public function index()
     {
-        return view('livros.index', [
+        return view('bibliotecario.livro.index', [
             'livros' => Livro::paginate(10),
         ]);
     }
@@ -24,7 +28,7 @@ class LivroController extends Controller
      */
     public function create()
     {
-        return view('livros.create');
+        return view('bibliotecario.livro.create');
     }
 
     /**
@@ -33,7 +37,7 @@ class LivroController extends Controller
     public function store(StoreLivroRequest $request)
     {
         Livro::create($request->validated());
-        return redirect()->route('livros.index');
+        return redirect()->route('bibliotecario.livro.index');
     }
 
     /**
@@ -42,7 +46,7 @@ class LivroController extends Controller
     public function show(Livro $livro)
     {
 
-        return view('livros.show', [
+        return view('lbibliotecario.ivrosshow', [
             'livro' => $livro,
             'localizacao' => $livro->localizacao,
             'categoria' => $livro->categoriaLivro,
@@ -56,7 +60,7 @@ class LivroController extends Controller
      */
     public function edit(Livro $livro)
     {
-        return view('livros.edit', [
+        return view('bibliotecario.livro.edit', [
             'livro' => $livro,
             'localizacao' => $livro->localizacao,
             'categoria' => $livro->categoriaLivro,
@@ -71,7 +75,7 @@ class LivroController extends Controller
     public function update(UpdateLivroRequest $request, Livro $livro)
     {
         $livro->update($request->validated());
-        return redirect()->route('livros.index');
+        return redirect()->route('bibliotecario.livro.index');
     }
 
     /**
@@ -80,6 +84,43 @@ class LivroController extends Controller
     public function destroy(Livro $livro)
     {
         $livro->delete();
-        return redirect()->route('livros.index');
+        return redirect()->route('bibliotecario.livro.index');
+    }
+
+    public function emprestimo(Livro $livro)
+    {
+        // Obter o bibliotecário associado ao usuário autenticado
+        $bibliotecario = auth()->user()->bibliotecario;
+
+        // Buscar alunos associados à faculdade do bibliotecário
+        $alunos = Aluno::where('faculdade_id', $bibliotecario->faculdade_id)->get();
+
+        // Obter o estoque do livro, carregando o status de estoque com eager loading
+        $estoque = EstoqueLivro::where('livro_id', $livro->id)
+            ->with('statusEstoque')
+            ->first();
+
+        // Verificar se há estoque disponível
+        if (!$estoque) {
+            // Lógica para tratamento quando não houver estoque
+            return redirect()->back()->with('error', 'Este livro não está disponível no estoque.');
+        }
+
+        return view('bibliotecario.livro.emprestimos.create', [
+            'livro' => $livro,
+            'alunos' => $alunos,
+            'estoque' => $estoque,
+        ]);
+    }
+
+    public function estoque(Livro $livro)
+    {
+        $estoques = EstoqueLivro::where('livro_id', $livro->id)
+            ->with('statusEstoque')
+            ->get();
+        return view('bibliotecario.livro.estoque.create', [
+            'livro' => $livro,
+            'estoques' => $estoques,
+        ]);
     }
 }

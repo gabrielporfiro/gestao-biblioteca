@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -30,60 +31,68 @@ class UsersController extends Controller
         return view('admin.usuarios.create')->with('roles', Role::all())->with('faculdades', Faculdade::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $role = $request->input('roles')[0];
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'roles' => 'required|array',
-            // Campos para Aluno
-            'matricula' => $role === 'Aluno' ? 'required|string' : 'nullable',
-            'telefone' => $role === 'Aluno' ? 'required|string' : 'nullable',
-            'endereco' => $role === 'Aluno' ? 'required|string' : 'nullable',
-            'cidade' => $role === 'Aluno' ? 'required|string' : 'nullable',
-            'estado' => $role === 'Aluno' ? 'required|string' : 'nullable',
-            'cep' => $role === 'Aluno' ? 'required|string' : 'nullable',
-            'pais' => $role === 'Aluno' ? 'required|string' : 'nullable',
-            // Campos para Bibliotecário
-            'faculdade_id' => $role === 'Bibliotecario' ? 'required|exists:faculdades,id' : 'nullable',
-        ]);
+        try {
+            DB::beginTransaction();
+            $role = $request->input('roles')[0] ?? '';
 
-        // Criação do usuário
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
-        ]);
+            $rules = [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+                'roles' => 'required|array',
+                // Campos para Aluno
+                'matricula' => $role === 'Aluno' ? 'string|required' : 'nullable',
+                'telefone' => $role === 'Aluno' ? 'string|nullable' : 'nullable',
+                'endereco' => $role === 'Aluno' ? 'string|nullable' : 'nullable',
+                'cidade' => $role === 'Aluno' ? 'string|nullable' : 'nullable',
+                'estado' => $role === 'Aluno' ? 'string|nullable' : 'nullable',
+                'cep' => $role === 'Aluno' ? 'string|nullable' : 'nullable',
+                'pais' => $role === 'Aluno' ? 'string|nullable' : 'nullable',
+                // Campos para Bibliotecário
+                'faculdade_id' => $role === 'Bibliotecario' ? 'required|exists:faculdades,id' : 'nullable',
+            ];
 
-        // Atribui a role ao usuário
-        $user->assignRole($role);
+            $validator = Validator::make($request->all(), $rules);
 
-        // Criação do aluno ou bibliotecário, se necessário
-        if ($role === 'Aluno') {
-            Aluno::create([
-                'user_id' => $user->id,
-                'matricula' => $validatedData['matricula'],
-                'telefone' => $validatedData['telefone'],
-                'endereco' => $validatedData['endereco'],
-                'cidade' => $validatedData['cidade'],
-                'estado' => $validatedData['estado'],
-                'cep' => $validatedData['cep'],
-                'pais' => $validatedData['pais'],
+            if ($validator->fails()) {
+                dd($validator->errors()->toArray(), $request->all());
+            }
+
+            $validatedData = $validator->validated();
+
+            $user = User::create([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => bcrypt($validatedData['password']),
             ]);
-        } elseif ($role === 'Bibliotecario') {
-            Bibliotecario::create([
-                'user_id' => $user->id,
-                'faculdade_id' => $validatedData['faculdade_id'],
-                'matricula' => $validatedData['matricula'],
-            ]);
+            $user->assignRole($role);
+            if ($role === 'Aluno') {
+                Aluno::create([
+                    'user_id' => $user->id,
+                    'matricula' => $validatedData['matricula'],
+                    'telefone' => $validatedData['telefone'],
+                    'endereco' => $validatedData['endereco'],
+                    'cidade' => $validatedData['cidade'],
+                    'estado' => $validatedData['estado'],
+                    'cep' => $validatedData['cep'],
+                    'pais' => $validatedData['pais'],
+                ]);
+            } elseif ($role === 'Bibliotecario') {
+                Bibliotecario::create([
+                    'user_id' => $user->id,
+                    'faculdade_id' => $validatedData['faculdade_id'],
+                    'matricula' => $validatedData['matricula'],
+                ]);
+            }
+            DB::commit();
+            return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            \Log::error('Erro ao criar usuário: ' . $e->getMessage());
+            return redirect()->route('usuarios.index')->with('error', 'Ocorreu um erro ao criar o usuário. Tente novamente.');
         }
-
-        return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso!');
     }
 
     /**
@@ -171,7 +180,6 @@ class UsersController extends Controller
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado!');
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->route('usuarios.index')->with('error', 'Não foi possível excluir o usuário. Erro: ' . $e->getMessage());
         }
     }

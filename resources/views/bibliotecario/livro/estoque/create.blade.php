@@ -48,8 +48,8 @@
                 @endforeach
                 <!-- Botão de Salvar -->
                 <div class="col-md-12 my-2 text-center">
-                    <button type="submit" class="btn btn-success w-full">
-                        <span data-feather="save"></span> Salvar
+                    <button type="submit" class="btn btn-primary w-full">
+                        <span data-feather="save"></span> Atualizar
                     </button>
                 </div>
             </div>

@@ -33,35 +33,42 @@ class Livro extends Model
         'faculdade_id',
     ];
 
-    /**
-     * Relationships
-     */
+    protected static function boot()
+    {
+        parent::boot();
 
-    // Relacionamento com o modelo Dominio para Categoria do Livro
+        static::creating(function ($livro) {
+            $statusDomains = Dominio::where('tp_dominio', 'status_do_livro')->get();
+            foreach ($statusDomains as $statusDomain) {
+                EstoqueLivro::create([
+                    'livro_id' => $livro->id,
+                    'quantidade' => 0,
+                    'status_estoque_id' => $statusDomain->id,
+                ]);
+            }
+        });
+    }
+
     public function categoriaLivro()
     {
         return $this->belongsTo(Dominio::class, 'categoria_livro_id');
     }
 
-    // Relacionamento com o modelo Localizacao
     public function localizacao()
     {
         return $this->belongsTo(Localizacao::class, 'localizacao_id');
     }
 
-    // Relacionamento com o modelo User para Bibliotecário
     public function bibliotecario()
     {
         return $this->belongsTo(User::class, 'bibliotecario_id');
     }
 
-    // Relacionamento com o modelo Dominio para Faculdade
     public function faculdade()
     {
         return $this->belongsTo(Dominio::class, 'faculdade_id');
     }
 
-    // Relacionamento com o modelo Emprestimo
     public function emprestimos()
     {
         return $this->hasMany(Emprestimo::class);

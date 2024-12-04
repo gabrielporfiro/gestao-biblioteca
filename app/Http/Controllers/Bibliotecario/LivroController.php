@@ -28,7 +28,8 @@ class LivroController extends Controller
      */
     public function create()
     {
-        return view('bibliotecario.livro.create');
+        $categorias = Dominio::where('tp_dominio', 'categoria_do_livro')->get();
+        return view('bibliotecario.livro.create')->with('categorias', $categorias);
     }
 
     /**
@@ -60,12 +61,10 @@ class LivroController extends Controller
      */
     public function edit(Livro $livro)
     {
+        $categorias = Dominio::where('tp_dominio', 'categoria_do_livro')->get();
         return view('bibliotecario.livro.edit', [
             'livro' => $livro,
-            'localizacao' => $livro->localizacao,
-            'categoria' => $livro->categoriaLivro,
-            'faculdade' => $livro->faculdade,
-            'emprestimos' => $livro->emprestimos->sortByDesc('data_emprestimo'),
+            'categorias' => $categorias,
         ]);
     }
 
